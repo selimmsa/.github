@@ -1,0 +1,126 @@
+name: Block Direct Push to Main
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+    types: [closed] # PR이 '닫힐 때(closed)'만 작동
+  issues:
+    types: [opened] # 이슈가 '새로 등록(opened)' 되었을 때만 작동
+
+jobs:
+  notify-push:
+    runs-on: ubuntu-latest
+    if: >
+      github.event_name == 'push' && 
+      github.event.repository.fork == false
+    # 🔥 403 에러 해결: GitHub API로 PR 정보를 조회하기 위한 권한을 명시적으로 부여합니다.
+    permissions:
+      contents: read
+      pull-requests: read
+    steps:
+      - name: Check if commit is from a PR
+        id: check_pr
+        env:
+          # GITHUB_TOKEN은 따로 설정할 필요 없이 GitHub이 알아서 발급해주는 기본 키입니다.
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_COUNT=0
+          # 🔥 문제 해결: GitHub 시스템이 커밋과 PR을 연결(인덱싱)하는 데 발생하는 딜레이를 극복하기 위해,
+          # 5초 간격으로 최대 3번(15초) API 조회를 재시도하여 확실하게 검증합니다.
+          for i in {1..3}; do
+            PR_COUNT=$(gh api repos/${{ github.repository }}/commits/${{ github.sha }}/pulls --jq 'length' || echo "0")
+            if [ "$PR_COUNT" -gt "0" ]; then
+              break
+            fi
+            sleep 2
+          done
+          echo "pr_count=$PR_COUNT" >> $GITHUB_OUTPUT
+      # 1단계: jq를 사용해 절대 깨지지 않는 안전한 JSON 파일 만들기
+      - name: Create JSON Payload
+        if: steps.check_pr.outputs.pr_count == '0' # PR과 연결된 커밋이 없을 때만 실행
+        env:
+          ACTOR: ${{ github.actor }}
+          REPO: ${{ github.repository }}
+          MSG: ${{ github.event.head_commit.message }}
+        run: |
+          jq -n \
+            --arg actor "$ACTOR" \
+            --arg repo "$REPO" \
+            --arg msg "$MSG" \
+            '{ text: "🚨 *[경고]* *\($actor)님이* *\($repo) 저장소의* Main Branch로 push 했습니다!\n\n*Commit Message:*\n```\n\($msg)\n```" }' > slack_payload.json
+
+      # 2단계: 만들어진 JSON 파일을 슬랙으로 전송하기
+      - name: Send Slack Message
+        if: steps.check_pr.outputs.pr_count == '0' # PR과 연결된 커밋이 없을 때만 실행
+        uses: slackapi/slack-github-action@v1.24.0
+        env:
+          SLACK_WEBHOOK_URL: https://hooks.slack.com/services/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
+        with:
+          # payload 직접 입력 대신, 위에서 만든 파일을 지정합니다.
+          payload-file-path: "./slack_payload.json"
+  # ==========================================
+  # 🛡️ Job 2: PR Merge 감지 (완료)
+  # ==========================================
+  notify-pr-merge:
+    runs-on: ubuntu-latest
+    # 조건: 커밋 메시지가 'Merge pull request'로 시작할 때
+    if: >
+      github.event_name == 'pull_request' && 
+      github.event.pull_request.merged == true && 
+      github.event.repository.fork == false
+    steps:
+      - name: Create JSON Payload (Success)
+        env:
+          ACTOR: ${{ github.actor }}
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+          REPO: ${{ github.repository }}
+          # 💡 변경됨: head_commit 대신 pull_request의 title과 body를 가져옵니다.
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_BODY: ${{ github.event.pull_request.body || '본문 내용 없음' }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+        run: |
+          jq -n \
+            --arg actor "$ACTOR" \
+            --arg author "$PR_AUTHOR" \
+            --arg repo "$REPO" \
+            --arg title "$PR_TITLE" \
+            --arg body "$PR_BODY" \
+            --arg url "$PR_URL" \
+            '{ text: "🛡️ *[완료]* *\($actor)님이* \($author)님의 코드를 *\($repo)* Main Branch에 합쳤습니다!\n\n*PR 제목:*\n\($title)\n\n*PR 내용:*\n```\n\($body)\n```" }' > slack_payload.json
+      - name: Send Slack Message
+        uses: slackapi/slack-github-action@v1.24.0
+        env:
+          SLACK_WEBHOOK_URL: https://hooks.slack.com/services/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
+        with:
+          payload-file-path: "./slack_payload.json"
+  # ==========================================
+  # 📝 Job 3: 새 이슈(Issue) 등록 알림
+  # ==========================================
+  notify-issue:
+    runs-on: ubuntu-latest
+    # 조건: 이벤트가 'issues' 이고 액션이 'opened(생성)' 일 때만 실행
+    if: github.event_name == 'issues' && github.event.action == 'opened' && github.event.repository.fork == false
+    steps:
+      - name: Create JSON Payload (Issue)
+        env:
+          ACTOR: ${{ github.actor }}
+          REPO: ${{ github.repository }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_URL: ${{ github.event.issue.html_url }}
+        run: |
+          jq -n \
+            --arg actor "$ACTOR" \
+            --arg repo "$REPO" \
+            --arg title "$ISSUE_TITLE" \
+            --arg url "$ISSUE_URL" \
+            '{ text: "📝 *[이슈]* *\($actor)님이* *\($repo) 저장소에* 새 이슈를 등록했습니다!\n\n*이슈 제목:*\n\($title)\n\n*바로가기:*\n\($url)" }' > slack_payload.json
+
+      - name: Send Slack Message (Issue)
+        uses: slackapi/slack-github-action@v1.24.0
+        env:
+          SLACK_WEBHOOK_URL: https://hooks.slack.com/services/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
+        with:
+          payload-file-path: "./slack_payload.json"
