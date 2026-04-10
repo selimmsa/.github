@@ -24,8 +24,7 @@
    - **Data Pipeline** : 벡터 DB 데이터 파이프라인
    - **Asset Management** : 모델 메타데이터 및 버전 관리
 - **아우터 아키텍처 & DevOps**
-   - **Core Standard** : 표준 아우터 아키텍처 핵심 설정
-   - **Validation** : 아우터 아키텍처 검증용 스크립트
+   - **Validation** : 아우터 아키텍처 구축 및 설정 검증
    - **Standard CI/CD** : 응용 서비스 표준 배포 파이프라인
 - **MSA 베이스 템플릿 (Spring Boot & React)**
    - **Core** : 백엔드 공통모듈, 컨피그서버
