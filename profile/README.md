@@ -18,15 +18,15 @@
 ---
 
 ## 레파지토리 분류
-- **LLMOps PoC & AI Services**
+#### LLMOps PoC & AI Services
    - **Main Control Tower** : LLMOps 인프라 및 체계 구축
    - **Service Layer** : AI 에이전트 및 추론 중계 API
    - **Data Pipeline** : 벡터 DB 데이터 파이프라인
    - **Asset Management** : 모델 메타데이터 및 버전 관리
-- **아우터 아키텍처 & DevOps**
+#### 아우터 아키텍처 & DevOps
    - **Validation** : 아우터 아키텍처 구축 및 설정 검증
    - **Standard CI/CD** : 응용 서비스 표준 배포 파이프라인
-- **MSA 베이스 템플릿 (Spring Boot & React)**
+#### MSA 베이스 템플릿 (Spring Boot & React)
    - **Core** : 백엔드 공통모듈, 컨피그서버
    - **Backend** : 인증, 게시판, 파일관리, 배치 템플릿
    - **Frontend & Gateway** : 스프링 게이트웨이, 리액트 UI
