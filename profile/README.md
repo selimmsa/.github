@@ -34,9 +34,7 @@
 ---
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Status-Active-success?style=flat-square"> 
-  <img src="https://img.shields.io/badge/Focus-Reliability-blue?style=flat-square">
+  <img src="https://img.shields.io/badge/Copyright-2026-success?style=flat-square"> 
+  <img src="https://img.shields.io/badge/Focus-Standardization-blue?style=flat-square">
   <img src="https://img.shields.io/badge/Infrastructure-Cloud_Native-orange?style=flat-square">
-  <br/>
-  <small>© 2026 SelimTSG / Platform Engineering. All rights reserved.</small>
 </p>
