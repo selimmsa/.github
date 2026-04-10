@@ -10,7 +10,7 @@
 
 ## 기술 스택
 
-| 분야 | 주요 목표 | 기술 스택 |
+| 분야 | 주요 목표 | 적용 기술 |
 | :--- | :--- | :--- |
 | **LLMOps** | 고성능 RAG 및 에이전트 체계 | `Python` `FastAPI` `VectorDB` `LLM` |
 | **클라우드 네이티브** | 인프라 자동화 및 표준 수립 | `Kubernetes` `Helm` `Docker` `Shell` |
