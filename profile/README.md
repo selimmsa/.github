@@ -35,6 +35,6 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Copyright-2026-success?style=flat-square"> 
-  <img src="https://img.shields.io/badge/Focus-Standardization-blue?style=flat-square">
+  <img src="https://img.shields.io/badge/Focus-LLMOps-blue?style=flat-square">
   <img src="https://img.shields.io/badge/Infrastructure-Cloud_Native-orange?style=flat-square">
 </p>
