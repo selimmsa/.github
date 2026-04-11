@@ -1,9 +1,9 @@
 <svg width="800" height="410" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <style>
-      /* 폰트 설정을 한곳에서 관리 (중복 따옴표 문제 해결) */
+      /* 모든 텍스트에 시스템 폰트 통합 적용 (따옴표 충돌 방지) */
       text { 
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; 
       }
       .th { font-weight: 700; font-size: 14px; fill: #1a1a1a; }
       .ts { font-weight: 400; font-size: 12px; fill: #555; }
@@ -20,30 +20,30 @@
     <text class="th" x="46" y="30">LLMOps Platform</text>
     <text class="ts" x="180" y="30">고성능 RAG 및 에이전트 체계 구축</text>
     <rect x="53" y="40" width="140" height="50" rx="8" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/>
-    <text class="th" x="123" y="65" text-anchor="middle">LLM Engine</text>
-    <text class="repo" x="123" y="82" text-anchor="middle">vLLM / PyTorch</text>
+    <text class="th" x="123" y="63" text-anchor="middle">LLM Engine</text>
+    <text class="repo" x="123" y="80" text-anchor="middle">vLLM / PyTorch</text>
     <rect x="213" y="40" width="160" height="50" rx="8" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5"/>
-    <text class="th" x="293" y="65" text-anchor="middle">RAG Orchestrator</text>
-    <text class="repo" x="293" y="82" text-anchor="middle">LangChain / Python</text>
+    <text class="th" x="293" y="63" text-anchor="middle">RAG Orchestrator</text>
+    <text class="repo" x="293" y="80" text-anchor="middle">LangChain / Python</text>
     <line x1="193" y1="65" x2="213" y2="65" stroke="#888" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
     <rect x="53" y="110" width="320" height="90" rx="8" fill="#F1F1F1" stroke="#ccc" stroke-width="0.5"/>
     <text class="label-sm" x="63" y="125">Focus Areas</text>
     <text class="repo" x="73" y="145">• Main Control Tower</text>
-    <text class="repo" x="73" y="165">• Service Layer / Data Pipeline</text>
-    <text class="repo" x="73" y="185">• Asset Management</text>
+    <text class="repo" x="73" y="165">• Service Layer / Data Indexing Pipeline</text>
+    <text class="repo" x="73" y="185">• Model Management</text>
 
     <rect x="413" y="9" width="360" height="204" rx="12" fill="#fcfcfc" stroke="#e0e0e0"/>
     <text class="th" x="422" y="30">Cloud Native &amp; DevOps</text>
     <text class="ts" x="586" y="30">인프라 자동화 및 표준 아키텍처 수립</text>
     <rect x="433" y="40" width="160" height="50" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
-    <text class="th" x="513" y="65" text-anchor="middle">Infrastructure</text>
-    <text class="repo" x="513" y="82" text-anchor="middle">Kubernetes / Helm</text>
+    <text class="th" x="513" y="63" text-anchor="middle">Infrastructure</text>
+    <text class="repo" x="513" y="80" text-anchor="middle">Kubernetes / Containers</text>
     <rect x="613" y="40" width="140" height="50" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
-    <text class="th" x="683" y="65" text-anchor="middle">Automation</text>
-    <text class="repo" x="683" y="82" text-anchor="middle">Terraform / Shell</text>
+    <text class="th" x="683" y="63" text-anchor="middle">Automation</text>
+    <text class="repo" x="683" y="80" text-anchor="middle">Helm / GitOps / Shell</text>
     <rect x="433" y="110" width="320" height="90" rx="8" fill="#F1F1F1" stroke="#ccc" stroke-width="0.5"/>
     <text class="label-sm" x="443" y="125">Focus Areas</text>
-    <text class="repo" x="453" y="145">• Core Standard (Outer Arch)</text>
+    <text class="repo" x="453" y="145">• Core Standard (Outer Architecture)</text>
     <text class="repo" x="453" y="165">• Validation Script</text>
     <text class="repo" x="453" y="185">• Standard CI/CD Pipeline</text>
 
@@ -51,17 +51,17 @@
     <text class="th" x="47" y="256">Enterprise MSA Foundation</text>
     <text class="ts" x="235" y="256">안정적인 서비스 공통 기반 및 템플릿 제공</text>
     <rect x="53" y="270" width="220" height="50" rx="8" fill="#EAF3DE" stroke="#3B6D11" stroke-width="0.5"/>
-    <text class="th" x="163" y="295" text-anchor="middle">Core Common</text>
-    <text class="repo" x="163" y="312" text-anchor="middle">Java / Spring Boot / Config</text>
+    <text class="th" x="163" y="293" text-anchor="middle">Core Common</text>
+    <text class="repo" x="163" y="310" text-anchor="middle">Java / Spring Boot / Config</text>
     <rect x="293" y="270" width="220" height="50" rx="8" fill="#EAF3DE" stroke="#3B6D11" stroke-width="0.5"/>
-    <text class="th" x="403" y="295" text-anchor="middle">Backend Templates</text>
-    <text class="repo" x="403" y="312" text-anchor="middle">Auth / BBS / File / Batch</text>
+    <text class="th" x="403" y="293" text-anchor="middle">Backend Templates</text>
+    <text class="repo" x="403" y="310" text-anchor="middle">Auth / BBS / File / Batch</text>
     <rect x="533" y="270" width="220" height="50" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
-    <text class="th" x="643" y="295" text-anchor="middle">Frontend &amp; Gateway</text>
-    <text class="repo" x="643" y="312" text-anchor="middle">React / Spring Gateway</text>
+    <text class="th" x="643" y="293" text-anchor="middle">Frontend &amp; Gateway</text>
+    <text class="repo" x="643" y="310" text-anchor="middle">React / Spring Gateway</text>
     <rect x="53" y="340" width="700" height="46" rx="8" fill="#F1F1F1" stroke="#ccc" stroke-width="0.5"/>
     <text class="label-sm" x="63" y="355">Reference Assets</text>
-    <text class="repo" x="73" y="375">Core: msa-cmmn, config-server | Backend: auth, bbs, file, batch | Frontend: fe-api(Gateway), fe-web(React)</text>
+    <text class="repo" x="73" y="375">Core: msa-cmmn, config-server | Backend: auth, bbs, file, batch | Frontend: API Gateway(SCG), Web UI(React)</text>
 
     <line x1="393" y1="100" x2="413" y2="100" stroke="#888" marker-end="url(#arrow)"/>
     <line x1="213" y1="214" x2="213" y2="234" stroke="#888" marker-end="url(#arrow)"/>
